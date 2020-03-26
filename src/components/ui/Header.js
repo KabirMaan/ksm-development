@@ -5,11 +5,10 @@ import useScrollTrigger from "@material-ui/core/useScrollTrigger";
 
 function ElevationScroll(props) {
   const { children } = props;
- 
+
   const trigger = useScrollTrigger({
     disableHysteresis: true,
-    threshold: 0,
- 
+    threshold: 0
   });
 
   return React.cloneElement(children, {
@@ -20,7 +19,7 @@ function ElevationScroll(props) {
 const Header = () => {
   return (
     <ElevationScroll>
-      <AppBar>
+      <AppBar position="fixed" color="primary">
         <Toolbar>KSM Development</Toolbar>
       </AppBar>
     </ElevationScroll>
