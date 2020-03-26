@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import useScrollTrigger from "@material-ui/core/useScrollTrigger";
@@ -27,7 +27,13 @@ const useStyles = makeStyles(theme => ({
     marginBottom: "3em"
   },
   logo: {
-    height: "7em"
+    height: "8em"
+  },
+  logoContainer: {
+    padding: 0,
+    "&:hover": {
+      backgroundColor: "transparent"
+    }
   },
   tabContainer: {
     marginLeft: "auto"
@@ -48,20 +54,43 @@ const useStyles = makeStyles(theme => ({
 
 const Header = () => {
   const classes = useStyles();
-  const [value, setValue] = useState(0);
+  const [tabValue, setTabValue] = useState(0);
 
   const handleTabChange = (e, value) => {
-    setValue(value);
+    setTabValue(value);
   };
+
+  useEffect(() => {
+    if (window.location.pathname === "/" && tabValue !== 0) {
+      setTabValue(0);
+    } else if (window.location.pathname === "/services" && tabValue !== 1) {
+      setTabValue(1);
+    } else if (window.location.pathname === "/revolution" && tabValue !== 2) {
+      setTabValue(2);
+    } else if (window.location.pathname === "/about" && tabValue !== 3) {
+      setTabValue(3);
+    } else if (window.location.pathname === "/contact" && tabValue !== 4) {
+      setTabValue(4);
+    }
+  }, [tabValue]);
   return (
     <>
       <ElevationScroll>
         <AppBar position="fixed" color="primary">
           <Toolbar disableGutters>
-            <img className={classes.logo} src={logo} alt="company logo" />
+            <Button
+              component={Link}
+              to="/"
+              className={classes.logoContainer}
+              onClick={() => setTabValue(0)}
+              disableRipple
+            >
+              <img className={classes.logo} src={logo} alt="company logo" />
+            </Button>
+
             <Tabs
               className={classes.tabContainer}
-              value={value}
+              value={tabValue}
               onChange={handleTabChange}
               // indicatorColor="primary"
             >
