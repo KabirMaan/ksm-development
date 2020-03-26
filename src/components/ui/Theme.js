@@ -18,6 +18,11 @@ const theme = createMuiTheme({
   },
   status: {
     danger: "orange"
+  },
+  typography: {
+    h3: {
+      fontWeight: 300
+    }
   }
 });
 
