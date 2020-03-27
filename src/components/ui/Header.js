@@ -110,6 +110,60 @@ const Header = () => {
     } else if (window.location.pathname === "/contact" && tabValue !== 4) {
       setTabValue(4);
     }
+
+    switch (window.location.pathname) {
+      case "/":
+        if (tabValue !== 0) {
+          setTabValue(0);
+        }
+        break;
+      case "/services":
+        if (tabValue !== 1) {
+          setTabValue(1);
+          setSelectedIndex(0);
+        }
+        break;
+      case "/customsoftware":
+        if (tabValue !== 1) {
+          setTabValue(1);
+          setSelectedIndex(1);
+        }
+        break;
+      case "/mobileapps":
+        if (tabValue !== 1) {
+          setTabValue(1);
+          setSelectedIndex(2);
+        }
+        break;
+      case "/websites":
+        if (tabValue !== 1) {
+          setTabValue(1);
+          setSelectedIndex(3);
+        }
+        break;
+      case "/revolution":
+        if (tabValue !== 2) {
+          setTabValue(2);
+        }
+        break;
+      case "/about":
+        if (tabValue !== 3) {
+          setTabValue(3);
+        }
+        break;
+      case "/contact":
+        if (tabValue !== 4) {
+          setTabValue(4);
+        }
+        break;
+      case "/estimate":
+        if (tabValue !== 5) {
+          setTabValue(5);
+        }
+        break;
+      default:
+        break;
+    }
   }, [tabValue]);
   return (
     <>
@@ -170,6 +224,8 @@ const Header = () => {
               variant="contained"
               color="secondary"
               className={classes.button}
+              component={Link}
+              to="/estimate"
             >
               Free Estimate
             </Button>
@@ -198,50 +254,6 @@ const Header = () => {
                   {option.name}
                 </MenuItem>
               ))}
-              {/* <MenuItem
-                onClick={() => {
-                  handleMenuClose();
-                  setTabValue(1);
-                }}
-                component={Link}
-                to="/services"
-                classes={{ root: classes.menuItem }}
-              >
-                Services
-              </MenuItem>
-              <MenuItem
-                onClick={() => {
-                  handleMenuClose();
-                  setTabValue(1);
-                }}
-                component={Link}
-                to="/customsoftware"
-                classes={{ root: classes.menuItem }}
-              >
-                Custom Software Development
-              </MenuItem>
-              <MenuItem
-                onClick={() => {
-                  handleMenuClose();
-                  setTabValue(1);
-                }}
-                component={Link}
-                to="/mobileapps"
-                classes={{ root: classes.menuItem }}
-              >
-                Mobile App Development
-              </MenuItem>
-              <MenuItem
-                onClick={() => {
-                  handleMenuClose();
-                  setTabValue(1);
-                }}
-                component={Link}
-                to="/websites"
-                classes={{ root: classes.menuItem }}
-              >
-                Website Development
-              </MenuItem> */}
             </Menu>
           </Toolbar>
         </AppBar>
