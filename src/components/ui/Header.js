@@ -2,8 +2,15 @@ import React, { useState, useEffect } from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import useScrollTrigger from "@material-ui/core/useScrollTrigger";
-import { Tabs, Tab, Button, Menu, MenuItem } from "@material-ui/core";
-import { makeStyles } from "@material-ui/styles";
+import {
+  Tabs,
+  Tab,
+  Button,
+  Menu,
+  MenuItem,
+  useMediaQuery
+} from "@material-ui/core";
+import { makeStyles, useTheme } from "@material-ui/styles";
 import { Link } from "react-router-dom";
 
 import logo from "../../assets/logo.svg";
@@ -24,10 +31,22 @@ function ElevationScroll(props) {
 const useStyles = makeStyles(theme => ({
   toolbarMargin: {
     ...theme.mixins.toolbar,
-    marginBottom: "3em"
+    marginBottom: "3em",
+    [theme.breakpoints.down("md")]: {
+      marginBottom: "2em"
+    },
+    [theme.breakpoints.down("xs")]: {
+      marginBottom: "1.25em"
+    }
   },
   logo: {
-    height: "8em"
+    height: "8em",
+    [theme.breakpoints.down("md")]: {
+      height: "7em"
+    },
+    [theme.breakpoints.down("xs")]: {
+      height: "5.5em"
+    }
   },
   logoContainer: {
     padding: 0,
@@ -66,6 +85,8 @@ const useStyles = makeStyles(theme => ({
 
 const Header = () => {
   const classes = useStyles();
+  const theme = useTheme();
+  const lessThanMediumScreen = useMediaQuery(theme.breakpoints.down("md"));
   const [tabValue, setTabValue] = useState(0);
   const [anchorEl, setAnchorEl] = useState(null);
   const [open, setOpen] = useState(false);
@@ -165,6 +186,82 @@ const Header = () => {
         break;
     }
   }, [tabValue]);
+
+  const tabs = (
+    <>
+      {" "}
+      <Tabs
+        className={classes.tabContainer}
+        value={tabValue}
+        onChange={handleTabChange}
+        // indicatorColor="primary"
+      >
+        <Tab className={classes.tab} label="Home" component={Link} to="/" />
+        <Tab
+          aria-owns={anchorEl ? "simple-menu" : undefined}
+          aria-haspopup={anchorEl ? true : undefined}
+          className={classes.tab}
+          label="Services"
+          component={Link}
+          to="/services"
+          onMouseOver={e => handleMenuOpen(e)}
+        />
+        <Tab
+          className={classes.tab}
+          label="The Revolution"
+          component={Link}
+          to="/revolution"
+        />
+        <Tab
+          className={classes.tab}
+          label="About Us"
+          component={Link}
+          to="/about"
+        />
+        <Tab
+          className={classes.tab}
+          label="Contact Us"
+          component={Link}
+          to="/contact"
+        />
+      </Tabs>
+      <Button
+        variant="contained"
+        color="secondary"
+        className={classes.button}
+        component={Link}
+        to="/estimate"
+      >
+        Free Estimate
+      </Button>
+      <Menu
+        id="simple-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleMenuClose}
+        MenuListProps={{ onMouseLeave: handleMenuClose }}
+        classes={{ paper: classes.menu }}
+        elevation={0}
+      >
+        {menuOptions.map((option, index) => (
+          <MenuItem
+            key={option}
+            onClick={e => {
+              handleMenuItemClick(e, index);
+              setTabValue(1);
+              handleMenuClose();
+            }}
+            selected={index === selectedIndex && tabValue === 1}
+            component={Link}
+            to={option.link}
+            classes={{ root: classes.menuItem }}
+          >
+            {option.name}
+          </MenuItem>
+        ))}
+      </Menu>
+    </>
+  );
   return (
     <>
       <ElevationScroll>
@@ -179,8 +276,8 @@ const Header = () => {
             >
               <img className={classes.logo} src={logo} alt="company logo" />
             </Button>
-
-            <Tabs
+            {lessThanMediumScreen ? <div>hell</div> : tabs}
+            {/* <Tabs
               className={classes.tabContainer}
               value={tabValue}
               onChange={handleTabChange}
@@ -254,7 +351,7 @@ const Header = () => {
                   {option.name}
                 </MenuItem>
               ))}
-            </Menu>
+            </Menu> */}
           </Toolbar>
         </AppBar>
       </ElevationScroll>
