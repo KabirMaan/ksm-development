@@ -146,79 +146,103 @@ const Header = () => {
   };
 
   const menuOptions = [
-    { name: "Services", link: "/services" },
-    { name: "Custom Software Development", link: "/customsoftware" },
-    { name: "Mobile App Development", link: "/mobileapps" },
-    { name: "Website Development", link: "/websites" }
+    { name: "Services", link: "/services", activeIndex: 1, selectedIndex: 0 },
+    {
+      name: "Custom Software Development",
+      link: "/customsoftware",
+      activeIndex: 1,
+      selectedIndex: 1
+    },
+    {
+      name: "Mobile App Development",
+      link: "/mobileapps",
+      activeIndex: 1,
+      selectedIndex: 2
+    },
+    {
+      name: "Website Development",
+      link: "/websites",
+      activeIndex: 1,
+      selectedIndex: 3
+    }
   ];
 
+  const routes = [
+    { name: "Home", link: "/", activeIndex: 0 },
+    { name: "Services", link: "/services", activeIndex: 1 },
+    { name: "The Revolution", link: "/revolution", activeIndex: 2 },
+    { name: "About Us", link: "/about", activeIndex: 3 },
+    { name: "Contact Us", link: "/contact", activeIndex: 4 }
+  ];
   useEffect(() => {
-    if (window.location.pathname === "/" && tabValue !== 0) {
-      setTabValue(0);
-    } else if (window.location.pathname === "/services" && tabValue !== 1) {
-      setTabValue(1);
-    } else if (window.location.pathname === "/revolution" && tabValue !== 2) {
-      setTabValue(2);
-    } else if (window.location.pathname === "/about" && tabValue !== 3) {
-      setTabValue(3);
-    } else if (window.location.pathname === "/contact" && tabValue !== 4) {
-      setTabValue(4);
-    }
-
-    switch (window.location.pathname) {
-      case "/":
-        if (tabValue !== 0) {
-          setTabValue(0);
-        }
-        break;
-      case "/services":
-        if (tabValue !== 1) {
-          setTabValue(1);
-          setSelectedIndex(0);
-        }
-        break;
-      case "/customsoftware":
-        if (tabValue !== 1) {
-          setTabValue(1);
-          setSelectedIndex(1);
-        }
-        break;
-      case "/mobileapps":
-        if (tabValue !== 1) {
-          setTabValue(1);
-          setSelectedIndex(2);
-        }
-        break;
-      case "/websites":
-        if (tabValue !== 1) {
-          setTabValue(1);
-          setSelectedIndex(3);
-        }
-        break;
-      case "/revolution":
-        if (tabValue !== 2) {
-          setTabValue(2);
-        }
-        break;
-      case "/about":
-        if (tabValue !== 3) {
-          setTabValue(3);
-        }
-        break;
-      case "/contact":
-        if (tabValue !== 4) {
-          setTabValue(4);
-        }
-        break;
-      case "/estimate":
-        if (tabValue !== 5) {
-          setTabValue(5);
-        }
-        break;
-      default:
-        break;
-    }
-  }, [tabValue]);
+    [...menuOptions, ...routes].forEach(route => {
+      switch (window.location.pathname) {
+        case `${route.link}`:
+          if (tabValue !== route.activeIndex) {
+            setTabValue(route.activeIndex);
+            if (route.selectedIndex && route.selectedIndex !== selectedIndex) {
+              setSelectedIndex(route.selectedIndex);
+            }
+          }
+          break;
+        default:
+          break;
+      }
+    });
+    // switch (window.location.pathname) {
+    //   case "/":
+    //     if (tabValue !== 0) {
+    //       setTabValue(0);
+    //     }
+    //     break;
+    //   case "/services":
+    //     if (tabValue !== 1) {
+    //       setTabValue(1);
+    //       setSelectedIndex(0);
+    //     }
+    //     break;
+    //   case "/customsoftware":
+    //     if (tabValue !== 1) {
+    //       setTabValue(1);
+    //       setSelectedIndex(1);
+    //     }
+    //     break;
+    //   case "/mobileapps":
+    //     if (tabValue !== 1) {
+    //       setTabValue(1);
+    //       setSelectedIndex(2);
+    //     }
+    //     break;
+    //   case "/websites":
+    //     if (tabValue !== 1) {
+    //       setTabValue(1);
+    //       setSelectedIndex(3);
+    //     }
+    //     break;
+    //   case "/revolution":
+    //     if (tabValue !== 2) {
+    //       setTabValue(2);
+    //     }
+    //     break;
+    //   case "/about":
+    //     if (tabValue !== 3) {
+    //       setTabValue(3);
+    //     }
+    //     break;
+    //   case "/contact":
+    //     if (tabValue !== 4) {
+    //       setTabValue(4);
+    //     }
+    //     break;
+    //   case "/estimate":
+    //     if (tabValue !== 5) {
+    //       setTabValue(5);
+    //     }
+    //     break;
+    //   default:
+    //     break;
+    // }
+  }, [tabValue, menuOptions, selectedIndex, routes]);
 
   const tabs = (
     <>
