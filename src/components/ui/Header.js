@@ -69,6 +69,7 @@ const Header = () => {
   const [tabValue, setTabValue] = useState(0);
   const [anchorEl, setAnchorEl] = useState(null);
   const [open, setOpen] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState(0);
 
   const handleTabChange = (e, value) => {
     setTabValue(value);
@@ -83,6 +84,19 @@ const Header = () => {
     setAnchorEl(null);
     setOpen(false);
   };
+
+  const handleMenuItemClick = (e, index) => {
+    setAnchorEl(null);
+    setOpen(false);
+    setSelectedIndex(index);
+  };
+
+  const menuOptions = [
+    { name: "Services", link: "/services" },
+    { name: "Custom Software Development", link: "/customsoftware" },
+    { name: "Mobile App Development", link: "/mobileapps" },
+    { name: "Website Development", link: "/websites" }
+  ];
 
   useEffect(() => {
     if (window.location.pathname === "/" && tabValue !== 0) {
@@ -168,7 +182,23 @@ const Header = () => {
               classes={{ paper: classes.menu }}
               elevation={0}
             >
-              <MenuItem
+              {menuOptions.map((option, index) => (
+                <MenuItem
+                  key={option}
+                  onClick={e => {
+                    handleMenuItemClick(e, index);
+                    setTabValue(1);
+                    handleMenuClose();
+                  }}
+                  selected={index === selectedIndex && tabValue === 1}
+                  component={Link}
+                  to={option.link}
+                  classes={{ root: classes.menuItem }}
+                >
+                  {option.name}
+                </MenuItem>
+              ))}
+              {/* <MenuItem
                 onClick={() => {
                   handleMenuClose();
                   setTabValue(1);
@@ -211,7 +241,7 @@ const Header = () => {
                 classes={{ root: classes.menuItem }}
               >
                 Website Development
-              </MenuItem>
+              </MenuItem> */}
             </Menu>
           </Toolbar>
         </AppBar>
