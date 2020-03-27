@@ -154,13 +154,46 @@ const Header = () => {
               onClose={handleMenuClose}
               MenuListProps={{ onMouseLeave: handleMenuClose }}
             >
-              <MenuItem onClick={handleMenuClose}>
+              <MenuItem
+                onClick={() => {
+                  handleMenuClose();
+                  setTabValue(1);
+                }}
+                component={Link}
+                to="/services"
+              >
+                Services
+              </MenuItem>
+              <MenuItem
+                onClick={() => {
+                  handleMenuClose();
+                  setTabValue(1);
+                }}
+                component={Link}
+                to="/customsoftware"
+              >
                 Custom Software Development
               </MenuItem>
-              <MenuItem onClick={handleMenuClose}>
+              <MenuItem
+                onClick={() => {
+                  handleMenuClose();
+                  setTabValue(1);
+                }}
+                component={Link}
+                to="/mobileapps"
+              >
                 Mobile App Development
               </MenuItem>
-              <MenuItem onClick={handleMenuClose}>Website Development</MenuItem>
+              <MenuItem
+                onClick={() => {
+                  handleMenuClose();
+                  setTabValue(1);
+                }}
+                component={Link}
+                to="/websites"
+              >
+                Website Development
+              </MenuItem>
             </Menu>
           </Toolbar>
         </AppBar>
