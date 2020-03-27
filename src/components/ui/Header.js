@@ -8,9 +8,12 @@ import {
   Button,
   Menu,
   MenuItem,
-  useMediaQuery
+  useMediaQuery,
+  SwipeableDrawer,
+  IconButton
 } from "@material-ui/core";
 import { makeStyles, useTheme } from "@material-ui/styles";
+import MenuIcon from "@material-ui/icons/Menu";
 import { Link } from "react-router-dom";
 
 import logo from "../../assets/logo.svg";
@@ -80,35 +83,48 @@ const useStyles = makeStyles(theme => ({
     "&:hover": {
       opacity: 1
     }
+  },
+  drawerIcon: {
+    height: "50px",
+    width: "50px"
+  },
+  drawIconContainer: {
+    marginLeft: "auto",
+    "&:hover": {
+      backgroundColor: "transparent"
+    }
   }
 }));
 
 const Header = () => {
   const classes = useStyles();
   const theme = useTheme();
+  const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
   const lessThanMediumScreen = useMediaQuery(theme.breakpoints.down("md"));
+
+  const [openDrawer, setOpenDrawer] = useState(false);
   const [tabValue, setTabValue] = useState(0);
   const [anchorEl, setAnchorEl] = useState(null);
-  const [open, setOpen] = useState(false);
+  const [openMenu, setOpenMenu] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
 
-  const handleTabChange = (e, value) => {
-    setTabValue(value);
+  const handleTabChange = (e, newValue) => {
+    setTabValue(newValue);
   };
 
   const handleMenuOpen = e => {
     setAnchorEl(e.currentTarget);
-    setOpen(true);
+    setOpenMenu(true);
   };
 
   const handleMenuClose = e => {
     setAnchorEl(null);
-    setOpen(false);
+    setOpenMenu(false);
   };
 
   const handleMenuItemClick = (e, index) => {
     setAnchorEl(null);
-    setOpen(false);
+    setOpenMenu(false);
     setSelectedIndex(index);
   };
 
@@ -237,7 +253,7 @@ const Header = () => {
       <Menu
         id="simple-menu"
         anchorEl={anchorEl}
-        open={open}
+        open={openMenu}
         onClose={handleMenuClose}
         MenuListProps={{ onMouseLeave: handleMenuClose }}
         classes={{ paper: classes.menu }}
@@ -262,6 +278,27 @@ const Header = () => {
       </Menu>
     </>
   );
+
+  const drawer = (
+    <>
+      <SwipeableDrawer
+        disableBackdropTransition={!iOS}
+        disableDiscovery={iOS}
+        open={openDrawer}
+        onClose={() => setOpenDrawer(false)}
+        onOpen={() => setOpenDrawer(true)}
+      >
+        example
+      </SwipeableDrawer>
+      <IconButton
+        className={classes.drawIconContainer}
+        onClick={() => setOpenDrawer(!openDrawer)}
+        disableRipple
+      >
+        <MenuIcon className={classes.drawerIcon} />
+      </IconButton>
+    </>
+  );
   return (
     <>
       <ElevationScroll>
@@ -276,82 +313,7 @@ const Header = () => {
             >
               <img className={classes.logo} src={logo} alt="company logo" />
             </Button>
-            {lessThanMediumScreen ? <div>hell</div> : tabs}
-            {/* <Tabs
-              className={classes.tabContainer}
-              value={tabValue}
-              onChange={handleTabChange}
-              // indicatorColor="primary"
-            >
-              <Tab
-                className={classes.tab}
-                label="Home"
-                component={Link}
-                to="/"
-              />
-              <Tab
-                aria-owns={anchorEl ? "simple-menu" : undefined}
-                aria-haspopup={anchorEl ? true : undefined}
-                className={classes.tab}
-                label="Services"
-                component={Link}
-                to="/services"
-                onMouseOver={e => handleMenuOpen(e)}
-              />
-              <Tab
-                className={classes.tab}
-                label="The Revolution"
-                component={Link}
-                to="/revolution"
-              />
-              <Tab
-                className={classes.tab}
-                label="About Us"
-                component={Link}
-                to="/about"
-              />
-              <Tab
-                className={classes.tab}
-                label="Contact Us"
-                component={Link}
-                to="/contact"
-              />
-            </Tabs>
-            <Button
-              variant="contained"
-              color="secondary"
-              className={classes.button}
-              component={Link}
-              to="/estimate"
-            >
-              Free Estimate
-            </Button>
-            <Menu
-              id="simple-menu"
-              anchorEl={anchorEl}
-              open={open}
-              onClose={handleMenuClose}
-              MenuListProps={{ onMouseLeave: handleMenuClose }}
-              classes={{ paper: classes.menu }}
-              elevation={0}
-            >
-              {menuOptions.map((option, index) => (
-                <MenuItem
-                  key={option}
-                  onClick={e => {
-                    handleMenuItemClick(e, index);
-                    setTabValue(1);
-                    handleMenuClose();
-                  }}
-                  selected={index === selectedIndex && tabValue === 1}
-                  component={Link}
-                  to={option.link}
-                  classes={{ root: classes.menuItem }}
-                >
-                  {option.name}
-                </MenuItem>
-              ))}
-            </Menu> */}
+            {lessThanMediumScreen ? drawer : tabs}
           </Toolbar>
         </AppBar>
       </ElevationScroll>
