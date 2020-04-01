@@ -110,6 +110,9 @@ const useStyles = makeStyles(theme => ({
   },
   drawerItemSelected: {
     opacity: 1
+  },
+  appBar: {
+    zIndex: theme.zIndex.modal + 1
   }
 }));
 
@@ -235,6 +238,7 @@ const Header = () => {
         onClose={handleMenuClose}
         MenuListProps={{ onMouseLeave: handleMenuClose }}
         classes={{ paper: classes.menu }}
+        style={{ zIndex: 1302 }}
         elevation={0}
         keepMounted
       >
@@ -268,6 +272,7 @@ const Header = () => {
         onOpen={() => setOpenDrawer(true)}
         classes={{ paper: classes.drawer }}
       >
+        <div className={classes.toolbarMargin} />
         <List disablePadding>
           {routes.map((route, index) => (
             <ListItem
@@ -285,7 +290,7 @@ const Header = () => {
               <ListItemText
                 className={
                   tabValue === route.activeIndex
-                    ? [classes.drawerItem, classes.drawerItemSelected]
+                    ? `${classes.drawerItem} ${classes.drawerItemSelected}`
                     : classes.drawerItem
                 }
                 disableTypography
@@ -332,7 +337,7 @@ const Header = () => {
   return (
     <>
       <ElevationScroll>
-        <AppBar position="fixed" color="primary">
+        <AppBar position="fixed" color="primary" className={classes.appBar}>
           <Toolbar disableGutters>
             <Button
               component={Link}
