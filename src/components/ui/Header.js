@@ -116,17 +116,17 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Header = () => {
+const Header = ({ selectedIndex, setSelectedIndex, tabValue, setTabValue }) => {
   const classes = useStyles();
   const theme = useTheme();
   const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
   const lessThanMediumScreen = useMediaQuery(theme.breakpoints.down("md"));
 
   const [openDrawer, setOpenDrawer] = useState(false);
-  const [tabValue, setTabValue] = useState(0);
+  // const [tabValue, setTabValue] = useState(0);
   const [anchorEl, setAnchorEl] = useState(null);
   const [openMenu, setOpenMenu] = useState(false);
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  // const [selectedIndex, setSelectedIndex] = useState(0);
 
   const handleTabChange = (e, newValue) => {
     setTabValue(newValue);
@@ -199,7 +199,14 @@ const Header = () => {
           break;
       }
     });
-  }, [tabValue, menuOptions, selectedIndex, routes]);
+  }, [
+    tabValue,
+    menuOptions,
+    selectedIndex,
+    routes,
+    setTabValue,
+    setSelectedIndex
+  ]);
 
   const tabs = (
     <>
