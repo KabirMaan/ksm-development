@@ -13,7 +13,7 @@ import {
   IconButton,
   List,
   ListItem,
-  ListItemText
+  ListItemText,
 } from "@material-ui/core";
 import { makeStyles, useTheme } from "@material-ui/styles";
 import MenuIcon from "@material-ui/icons/Menu";
@@ -26,47 +26,47 @@ function ElevationScroll(props) {
 
   const trigger = useScrollTrigger({
     disableHysteresis: true,
-    threshold: 0
+    threshold: 0,
   });
 
   return React.cloneElement(children, {
-    elevation: trigger ? 4 : 0
+    elevation: trigger ? 4 : 0,
   });
 }
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   toolbarMargin: {
     ...theme.mixins.toolbar,
     marginBottom: "3em",
     [theme.breakpoints.down("md")]: {
-      marginBottom: "2em"
+      marginBottom: "2em",
     },
     [theme.breakpoints.down("xs")]: {
-      marginBottom: "1.25em"
-    }
+      marginBottom: "1.25em",
+    },
   },
   logo: {
     height: "8em",
     [theme.breakpoints.down("md")]: {
-      height: "7em"
+      height: "7em",
     },
     [theme.breakpoints.down("xs")]: {
-      height: "5.5em"
-    }
+      height: "5.5em",
+    },
   },
   logoContainer: {
     padding: 0,
     "&:hover": {
-      backgroundColor: "transparent"
-    }
+      backgroundColor: "transparent",
+    },
   },
   tabContainer: {
-    marginLeft: "auto"
+    marginLeft: "auto",
   },
   tab: {
     ...theme.typography.tab,
     minWidth: 10,
-    marginLeft: "25px"
+    marginLeft: "25px",
   },
   button: {
     ...theme.typography.estimate,
@@ -75,48 +75,48 @@ const useStyles = makeStyles(theme => ({
     marginRight: "25px",
     height: "45px",
     "&:hover": {
-      backgroundColor: theme.palette.secondary.light
-    }
+      backgroundColor: theme.palette.secondary.light,
+    },
   },
   menu: {
     backgroundColor: theme.palette.common.blue,
     color: "white",
-    borderRadius: "0px"
+    borderRadius: "0px",
   },
   menuItem: {
     ...theme.typography.tab,
     opacity: 0.7,
     "&:hover": {
-      opacity: 1
-    }
+      opacity: 1,
+    },
   },
   drawerIcon: {
     height: "50px",
-    width: "50px"
+    width: "50px",
   },
   drawIconContainer: {
     marginLeft: "auto",
     "&:hover": {
-      backgroundColor: "transparent"
-    }
+      backgroundColor: "transparent",
+    },
   },
   drawer: {
-    backgroundColor: theme.palette.common.blue
+    backgroundColor: theme.palette.common.blue,
   },
   drawerItem: {
     ...theme.typography.tab,
     color: "white",
-    opacity: 0.7
+    opacity: 0.7,
   },
   drawerItemEstimate: {
-    backgroundColor: theme.palette.common.orange
+    backgroundColor: theme.palette.common.orange,
   },
   drawerItemSelected: {
-    opacity: 1
+    opacity: 1,
   },
   appBar: {
-    zIndex: theme.zIndex.modal + 1
-  }
+    zIndex: theme.zIndex.modal + 1,
+  },
 }));
 
 const Header = ({ selectedIndex, setSelectedIndex, tabValue, setTabValue }) => {
@@ -135,12 +135,12 @@ const Header = ({ selectedIndex, setSelectedIndex, tabValue, setTabValue }) => {
     setTabValue(newValue);
   };
 
-  const handleMenuOpen = e => {
+  const handleMenuOpen = (e) => {
     setAnchorEl(e.currentTarget);
     setOpenMenu(true);
   };
 
-  const handleMenuClose = e => {
+  const handleMenuClose = (e) => {
     setAnchorEl(null);
     setOpenMenu(false);
   };
@@ -157,20 +157,20 @@ const Header = ({ selectedIndex, setSelectedIndex, tabValue, setTabValue }) => {
       name: "Custom Software Development",
       link: "/customsoftware",
       activeIndex: 1,
-      selectedIndex: 1
+      selectedIndex: 1,
     },
     {
-      name: "Mobile App Development",
+      name: "iOS/Android App Development",
       link: "/mobileapps",
       activeIndex: 1,
-      selectedIndex: 2
+      selectedIndex: 2,
     },
     {
       name: "Website Development",
       link: "/websites",
       activeIndex: 1,
-      selectedIndex: 3
-    }
+      selectedIndex: 3,
+    },
   ];
 
   const routes = [
@@ -181,14 +181,14 @@ const Header = ({ selectedIndex, setSelectedIndex, tabValue, setTabValue }) => {
       activeIndex: 1,
       ariaOwns: anchorEl ? "simple-menu" : undefined,
       ariaPopup: anchorEl ? true : undefined,
-      mouseOver: e => handleMenuOpen(e)
+      mouseOver: (e) => handleMenuOpen(e),
     },
     { name: "The Revolution", link: "/revolution", activeIndex: 2 },
     { name: "About Us", link: "/about", activeIndex: 3 },
-    { name: "Contact Us", link: "/contact", activeIndex: 4 }
+    { name: "Contact Us", link: "/contact", activeIndex: 4 },
   ];
   useEffect(() => {
-    [...menuOptions, ...routes].forEach(route => {
+    [...menuOptions, ...routes].forEach((route) => {
       switch (window.location.pathname) {
         case `${route.link}`:
           if (tabValue !== route.activeIndex) {
@@ -208,7 +208,7 @@ const Header = ({ selectedIndex, setSelectedIndex, tabValue, setTabValue }) => {
     selectedIndex,
     routes,
     setTabValue,
-    setSelectedIndex
+    setSelectedIndex,
   ]);
 
   const tabs = (
@@ -255,7 +255,7 @@ const Header = ({ selectedIndex, setSelectedIndex, tabValue, setTabValue }) => {
         {menuOptions.map((option, index) => (
           <MenuItem
             key={index}
-            onClick={e => {
+            onClick={(e) => {
               handleMenuItemClick(e, index);
               setTabValue(1);
               handleMenuClose();
