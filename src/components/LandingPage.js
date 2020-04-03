@@ -1,9 +1,10 @@
 import React from "react";
 import Lottie from "react-lottie";
-import animationData from "../animations/landinganimation/data";
-import { makeStyles } from "@material-ui/styles";
-import { Grid, Button, Typography } from "@material-ui/core";
+import { makeStyles, useTheme } from "@material-ui/styles";
+import { Grid, Button, Typography, useMediaQuery } from "@material-ui/core";
 
+import animationData from "../animations/landinganimation/data";
+import customSoftwareIcon from "../assets/Custom Software Icon.svg";
 const useStyles = makeStyles(theme => ({
   animation: {
     maxWidth: "50em",
@@ -29,16 +30,20 @@ const useStyles = makeStyles(theme => ({
     marginTop: "1em"
   },
   learnButtonHero: {
-    borderColor: theme.palette.common.blue,
-    color: theme.palette.common.blue,
-    borderWidth: 2,
-    textTransform: "none",
-    borderRadius: 50,
-    fontFamily: "Roboto",
-    fontWeight: "bold",
+    ...theme.typography.learnButton,
     fontSize: ".9rem",
     height: 45,
     width: 145
+  },
+  learnButton: {
+    ...theme.typography.learnButton,
+    fontSize: ".7rem",
+    height: 35,
+    padding: 5,
+    [theme.breakpoints.down("sm")]: {
+      marginTop: "1em",
+      marginBottom: "2em"
+    }
   },
   mainContainer: {
     marginTop: "5em",
@@ -55,11 +60,40 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.down("md")]: {
       marginLeft: "0em"
     }
+  },
+  specialText: {
+    fontFamily: "Pacifico",
+    color: theme.palette.common.orange
+  },
+  subTitle: {
+    marginBottom: "1em"
+  },
+  icon: {
+    marginLeft: "2em",
+    [theme.breakpoints.down("xs")]: {
+      marginLeft: "0em"
+    }
+  },
+
+  servicesContainer: {
+    marginTop: "12em",
+    [theme.breakpoints.down("sm")]: {
+      padding: 25
+    }
+  },
+  servicesLeft: {
+    marginLeft: "5em",
+    [theme.breakpoints.down("sm")]: {
+      marginLeft: "0em",
+      textAlign: "center"
+    }
   }
 }));
 
 const LandingPage = () => {
   const classes = useStyles();
+  const theme = useTheme();
+  const matchesSM = useMediaQuery(theme.breakpoints.down("sm"));
   const defaultOptions = {
     loop: true,
     autoplay: true,
@@ -70,6 +104,7 @@ const LandingPage = () => {
   };
   return (
     <Grid container direction="column" className={classes.mainContainer}>
+      {/*-----Hero Block-----*/}
       <Grid item>
         <Grid container justify="flex-end" alignItems="center" direction="row">
           <Grid item sm className={classes.heroTextContainer}>
@@ -79,7 +114,7 @@ const LandingPage = () => {
             <Grid
               container
               justify="center"
-              alignItems="center"
+              // alignItems="center"
               className={classes.buttonContainer}
             >
               <Grid item>
@@ -96,6 +131,36 @@ const LandingPage = () => {
           </Grid>
           <Grid className={classes.animation} item sm>
             <Lottie options={defaultOptions} height={"100%"} width={"100%"} />
+          </Grid>
+        </Grid>
+      </Grid>
+      <Grid item>
+        {/*-----Services Block------*/}
+        <Grid
+          container
+          direction="row"
+          className={classes.servicesContainer}
+          justify={matchesSM ? "center" : undefined}
+        >
+          <Grid item style={{}} className={classes.servicesLeft}>
+            <Typography variant="h4">Custom Software Development</Typography>
+            <Typography variant="subtitle1" className={classes.subTitle}>
+              Save Energy. Save Time. Save Money.
+            </Typography>
+            <Typography variant="subtitle1">
+              Complete digital solutions, from investigation to{" "}
+              <span className={classes.specialText}>celebration.</span>
+            </Typography>
+            <Button variant="outlined" className={classes.learnButton}>
+              <span>Learn More</span>
+            </Button>
+          </Grid>
+          <Grid item>
+            <img
+              alt="custom software icon"
+              src={customSoftwareIcon}
+              className={classes.icon}
+            />
           </Grid>
         </Grid>
       </Grid>

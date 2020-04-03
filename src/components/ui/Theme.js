@@ -2,18 +2,18 @@ import { createMuiTheme } from "@material-ui/core/styles";
 
 const ksmBlue = "#0B72B9";
 const ksmOrange = "#FFBA60";
-
+const ksmGrey = "#868686";
 const theme = createMuiTheme({
   palette: {
     common: {
-      blue: `${ksmBlue}`,
-      orange: `${ksmOrange}`
+      blue: ksmBlue,
+      orange: ksmOrange
     },
     primary: {
-      main: `${ksmBlue}`
+      main: ksmBlue
     },
     secondary: {
-      main: `${ksmOrange}`
+      main: ksmOrange
     }
   },
   status: {
@@ -36,8 +36,28 @@ const theme = createMuiTheme({
       fontFamily: "Raleway",
       fontWeight: 700,
       fontSize: "2.5rem",
-      color: `${ksmBlue}`,
+      color: ksmBlue,
       lineHeight: 1.5
+    },
+    h4: {
+      fontFamily: "Raleway",
+      fontSize: "1.75rem",
+      color: ksmBlue,
+      fontWeight: 700
+    },
+    subtitle1: {
+      fontSize: "1.25rem",
+      fontWeight: 300,
+      color: `${ksmGrey}`
+    },
+    learnButton: {
+      borderColor: ksmBlue,
+      color: ksmBlue,
+      borderWidth: 2,
+      textTransform: "none",
+      borderRadius: 50,
+      fontFamily: "Roboto",
+      fontWeight: "bold"
     }
   }
 });
