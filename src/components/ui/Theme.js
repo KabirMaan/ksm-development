@@ -55,6 +55,11 @@ const theme = createMuiTheme({
       fontWeight: 300,
       color: `${ksmGrey}`,
     },
+    subtitle2: {
+      color: "white",
+      fontSize: "1.25rem",
+      fontWeight: 300,
+    },
     learnButton: {
       borderColor: ksmBlue,
       color: ksmBlue,
