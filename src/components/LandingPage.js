@@ -1,5 +1,6 @@
 import React from "react";
 import Lottie from "react-lottie";
+import { Link } from "react-router-dom";
 import { makeStyles, useTheme } from "@material-ui/styles";
 import {
   Grid,
@@ -145,7 +146,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const LandingPage = () => {
+const LandingPage = ({ setTabValue, setSelectedIndex }) => {
   const classes = useStyles();
   const theme = useTheme();
   const matchesSM = useMediaQuery(theme.breakpoints.down("sm"));
@@ -174,12 +175,24 @@ const LandingPage = () => {
               className={classes.buttonContainer}
             >
               <Grid item>
-                <Button variant="contained" className={classes.estimateButton}>
+                <Button
+                  variant="contained"
+                  className={classes.estimateButton}
+                  component={Link}
+                  to="/estimate"
+                  onClick={() => setTabValue(5)}
+                >
                   Free Estimate
                 </Button>
               </Grid>
               <Grid item>
-                <Button variant="outlined" className={classes.learnButtonHero}>
+                <Button
+                  variant="outlined"
+                  className={classes.learnButtonHero}
+                  component={Link}
+                  to="/revolution"
+                  onClick={() => setTabValue(2)}
+                >
                   Learn More
                 </Button>
               </Grid>
@@ -207,7 +220,16 @@ const LandingPage = () => {
               Complete digital solutions, from investigation to{" "}
               <span className={classes.specialText}>celebration.</span>
             </Typography>
-            <Button variant="outlined" className={classes.learnButton}>
+            <Button
+              variant="outlined"
+              className={classes.learnButton}
+              component={Link}
+              to="/customsoftware"
+              onClick={() => {
+                setTabValue(1);
+                setSelectedIndex(1);
+              }}
+            >
               <span>Learn More</span>
             </Button>
           </Grid>
@@ -238,7 +260,16 @@ const LandingPage = () => {
               Integrate your web experience or create a standalone app{" "}
               {matchesSM ? null : <br />} with either mobile platform.
             </Typography>
-            <Button variant="outlined" className={classes.learnButton}>
+            <Button
+              variant="outlined"
+              className={classes.learnButton}
+              component={Link}
+              to="/mobileapps"
+              onClick={() => {
+                setTabValue(1);
+                setSelectedIndex(2);
+              }}
+            >
               <span>Learn More</span>
             </Button>
           </Grid>
@@ -268,7 +299,16 @@ const LandingPage = () => {
             <Typography variant="subtitle1">
               Optimised for Search Engines, built for speed.
             </Typography>
-            <Button variant="outlined" className={classes.learnButton}>
+            <Button
+              variant="outlined"
+              className={classes.learnButton}
+              component={Link}
+              to="/websites"
+              onClick={() => {
+                setTabValue(1);
+                setSelectedIndex(3);
+              }}
+            >
               <span>Learn More</span>
             </Button>
           </Grid>
@@ -309,6 +349,11 @@ const LandingPage = () => {
                   <Button
                     variant="outlined"
                     className={classes.learnButtonHero}
+                    component={Link}
+                    to="/revolution"
+                    onClick={() => {
+                      setTabValue(2);
+                    }}
                   >
                     Learn More
                   </Button>
@@ -326,23 +371,26 @@ const LandingPage = () => {
           direction="row"
           alignItems="center"
           style={{ height: "80em" }}
+          className={classes.infoBackground}
         >
           <Grid
             item
             container
             style={{
-              position: "absolute",
               textAlign: matchesXS ? "center" : "inherit",
             }}
             direction={matchesXS ? "column" : "row"}
-            spacing={matchesXS ? 10 : 0}
           >
             <Grid
               item
               sm
               style={{ marginLeft: matchesXS ? 0 : matchesSM ? "2em" : "5em" }}
             >
-              <Grid container direction="column">
+              <Grid
+                container
+                direction="column"
+                style={{ marginBottom: matchesXS ? "10em" : 0 }}
+              >
                 <Typography variant="h2" style={{ color: "white" }}>
                   About Us
                 </Typography>
@@ -352,6 +400,11 @@ const LandingPage = () => {
                     variant="outlined"
                     className={classes.learnButtonHero}
                     style={{ color: "white", borderColor: "white" }}
+                    component={Link}
+                    to="/about"
+                    onClick={() => {
+                      setTabValue(3);
+                    }}
                   >
                     Learn More
                   </Button>
@@ -381,6 +434,11 @@ const LandingPage = () => {
                     variant="outlined"
                     className={classes.learnButtonHero}
                     style={{ color: "white", borderColor: "white" }}
+                    component={Link}
+                    to="/contact"
+                    onClick={() => {
+                      setTabValue(4);
+                    }}
                   >
                     Learn More
                   </Button>
@@ -388,12 +446,11 @@ const LandingPage = () => {
               </Grid>
             </Grid>
           </Grid>
-          <div className={classes.infoBackground} />
         </Grid>
       </Grid>
       <Grid item>
         {/*-----Call To Action------*/}
-        <CallToAction />
+        <CallToAction setTabValue={setTabValue} />
       </Grid>
     </Grid>
   );
