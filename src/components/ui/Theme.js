@@ -23,6 +23,7 @@ const theme = createMuiTheme({
     tab: {
       fontFamily: "Raleway",
       textTransform: "none",
+      color: "white",
       fontWeight: 700,
       fontSize: "1rem",
     },
@@ -60,6 +61,12 @@ const theme = createMuiTheme({
       fontSize: "1.25rem",
       fontWeight: 300,
     },
+    body1: {
+      fontSize: "1.25rem",
+      color: ksmGrey,
+      fontWeight: 300,
+    },
+
     learnButton: {
       borderColor: ksmBlue,
       color: ksmBlue,
