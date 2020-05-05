@@ -82,6 +82,28 @@ const theme = createMuiTheme({
       fontWeight: "bold",
     },
   },
+  overrides: {
+    MuiInputLabel: {
+      root: {
+        color: ksmBlue,
+        fontSize: "1rem",
+      },
+    },
+    MuiInput: {
+      root: {
+        color: ksmGrey,
+        fontWeight: 300,
+      },
+      underline: {
+        "&:before": {
+          borderBottom: `2px solid ${ksmBlue}`,
+        },
+        "&:hover:not($disabled):not($focused):not($error):before": {
+          borderBottom: `2px solid ${ksmBlue}`,
+        },
+      },
+    },
+  },
 });
 
 export default theme;
