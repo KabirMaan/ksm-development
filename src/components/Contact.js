@@ -9,7 +9,7 @@ import {
   DialogContent,
 } from "@material-ui/core";
 import { makeStyles, useTheme } from "@material-ui/styles";
-
+import axios from "axios";
 import background from "../assets/background.jpg";
 import mobileBackground from "../assets/mobileBackground.jpg";
 import phoneIcon from "../assets/phone.svg";
@@ -128,6 +128,17 @@ const Contact = ({ setTabValue }) => {
 
       default:
         break;
+    }
+  };
+
+  const onConfirm = async () => {
+    try {
+      const response = await axios.get(
+        "https://us-central1-ksm-development.cloudfunctions.net/sendMail"
+      );
+      console.log(response);
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -390,7 +401,7 @@ const Contact = ({ setTabValue }) => {
                   !email ||
                   !phone
                 }
-                onClick={() => setOpen(true)}
+                onClick={onConfirm}
               >
                 Send Message
                 <img
