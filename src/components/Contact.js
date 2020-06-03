@@ -7,6 +7,7 @@ import {
   useMediaQuery,
   Dialog,
   DialogContent,
+  CircularProgress,
 } from "@material-ui/core";
 import { makeStyles, useTheme } from "@material-ui/styles";
 import axios from "axios";
@@ -99,6 +100,8 @@ const Contact = ({ setTabValue }) => {
 
   const [open, setOpen] = useState(false);
 
+  const [loading, setLoading] = useState(false);
+
   const onChange = (event) => {
     let valid;
     switch (event.target.id) {
@@ -132,15 +135,30 @@ const Contact = ({ setTabValue }) => {
   };
 
   const onConfirm = async () => {
+    setLoading(true);
     try {
       const response = await axios.get(
         "https://us-central1-ksm-development.cloudfunctions.net/sendMail"
       );
       console.log(response);
+      setLoading(false);
+      setOpen(false);
+      setName("");
+      setEmail("");
+      setPhone("");
+      setMessage("");
     } catch (err) {
       console.log(err);
+      setLoading(false);
     }
   };
+
+  const buttonContents = (
+    <>
+      Send Message
+      <img src={airplane} alt="paper airplane" style={{ marginLeft: "1em" }} />
+    </>
+  );
 
   return (
     <Grid container direction="row">
@@ -284,12 +302,7 @@ const Contact = ({ setTabValue }) => {
                 }
                 onClick={() => setOpen(true)}
               >
-                Send Message
-                <img
-                  src={airplane}
-                  alt="paper airplane"
-                  style={{ marginLeft: "1em" }}
-                />
+                {buttonContents}
               </Button>
             </Grid>
           </Grid>
@@ -403,12 +416,7 @@ const Contact = ({ setTabValue }) => {
                 }
                 onClick={onConfirm}
               >
-                Send Message
-                <img
-                  src={airplane}
-                  alt="paper airplane"
-                  style={{ marginLeft: "1em" }}
-                />
+                {loading ? <CircularProgress size={30} /> : buttonContents}
               </Button>
             </Grid>
           </Grid>
