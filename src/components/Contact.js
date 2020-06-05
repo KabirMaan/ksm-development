@@ -144,7 +144,15 @@ const Contact = ({ setTabValue }) => {
     setLoading(true);
     try {
       const response = await axios.get(
-        "https://us-central1-ksm-development.cloudfunctions.net/sendMail"
+        "https://us-central1-ksm-development.cloudfunctions.net/sendMail",
+        {
+          params: {
+            name,
+            email,
+            phone,
+            message,
+          },
+        }
       );
       console.log(response);
       setLoading(false);
